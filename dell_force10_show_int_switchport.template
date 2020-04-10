@@ -1,0 +1,12 @@
+Value Required NAME (\S+\s\S+)
+Value Required MODE (\S+)
+Value UNTAGGED (\S+)
+Value TAGGED (\S+)
+Value NATIVE (\S+)
+
+Start
+  ^Name:\s${NAME}
+  ^802.1QTagged:\s${MODE}
+  ^U\s+${UNTAGGED}
+  ^T\s+${TAGGED}
+  ^Native VlanId:\s+${NATIVE}\. -> Record

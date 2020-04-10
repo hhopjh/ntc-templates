@@ -1,0 +1,19 @@
+Value Required LOCAL_INTERFACE (\S+\s\S+)
+Value CHASSIS_ID (\S+)
+Value NEIGHBOR_PORT_ID (\S+)
+Value NEIGHBOR_INTERFACE (.*)
+Value NEIGHBOR (\S+)
+Value NEIGHBOR_IPV4 (\S+)
+
+
+Start
+  ^==+
+  ^.*not advertised
+  ^.*Invalid input detected -> EOF
+  ^.*LLDP is not enabled -> EOF
+  ^\s+Local Interface\s+${LOCAL_INTERFACE}\shas
+  ^\s+Remote Chassis ID:\s+${CHASSIS_ID}
+  ^\s+Remote Port ID:\s+${NEIGHBOR_PORT_ID}
+  ^\s+Remote Port Description:\s+${NEIGHBOR_INTERFACE}$$
+  ^\s+Remote System Name:\s+${NEIGHBOR}
+  ^\s+Remote Management Address \(IPv4\):\s+${NEIGHBOR_IPV4} -> Record

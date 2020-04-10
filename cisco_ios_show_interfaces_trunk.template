@@ -1,0 +1,15 @@
+Value NATIVE (\d+)
+Value Required PORT (\S+)
+Value VLANALLOWED (\S+)
+
+Start
+  ^Port -> Begin
+
+Begin
+  ^${PORT}\s.*trunking\s*${NATIVE}* -> AllowedVlanBanner
+
+AllowedVlanBanner
+  ^.*Vlans allowed and active in management domain -> AllowedVlanPorts
+
+AllowedVlanPorts
+  ^${PORT}\s+${VLANALLOWED} -> Continue.Record

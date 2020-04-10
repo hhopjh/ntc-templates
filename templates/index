@@ -281,6 +281,8 @@ dell_force10_show_vlan_brief.template, .*, dell_force10, sh[[ow]] vl[[an]] br[[i
 dell_force10_show_version.template, .*, dell_force10, sh[[ow]] ver[[sion]]
 dell_force10_show_vlan.template, .*, dell_force10, sh[[ow]] vl[[an]]
 dell_force10_show_arp.template, .*, dell_force10, sh[[ow]] ar[[p]]
+dell_force10_show_int_switchport.template, .*, dell_force10, sh[[ow]] int[[erface]] switch[[port]]
+dell_force10_show_lldp_nei_detail.template, .*, dell_force10, sh[[ow]] ll[[dp]] nei[[ghbors]] de[[tails]]
 
 hp_comware_display_mac-address.template, .*, hp_comware, di[[splay]] mac-ad[[dress]]
 hp_comware_display_vlan_brief.template, .*, hp_comware, di[[splay]] v[[lan]] b[[rief]]
