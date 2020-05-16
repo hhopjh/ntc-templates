@@ -1,0 +1,58 @@
+# Value STACK_MAC (\S+)
+# Value RELOAD_TYPE (\S+)
+Value Key,Filldown SWITCH (\d+)
+Value STACK_UNIT_TYPE (\S+\s\S+)
+Value STACK_UNIT_STATUS (\S+)
+Value STACK_CURRENT_TYPE (.*)
+Value STACK_UPTIME (.*)
+Value STACK_VERSION (.*)
+Value Key PSU_UNIT (\d)
+Value PSU_BAY (\d)
+Value PSU_STATUS (\S+)
+Value PSU_TYPE (\S+)
+Value PSU_FAN_STATUS (\S+)
+Value PSU_FAN_SPEED (\d+)
+Value PSU_POWER (\d+)
+Value PSU_AVG_POWER (\d+)
+Value PSU_STARTTIME (\S+)
+Value Key FAN_UNIT (\d+)
+Value FAN_BAY (\d+)
+Value FAN_TRAY_STATUS (\S+)
+Value FAN_FAN1_STATUS (\S+)
+Value FAN_FAN1_SPEED (\d+)
+Value FAN_FAN2_STATUS (\S+)
+Value FAN_FAN2_SPEED (\d+)
+
+
+Start
+  ^--\s+Unit\s${SWITCH} -> Stack
+  ^\s*$$ -> Clearall
+
+Stack
+  # ^--\s+Unit\s${SWITCH} -> Clear
+  ^Unit\sType\s+:\s+${STACK_UNIT_TYPE}
+  ^Status\s+:\s+${STACK_UNIT_STATUS}
+  ^Current\sType\s+:\s+${STACK_CURRENT_TYPE}
+  ^Up\sTime\s+:\s+${STACK_UPTIME}
+  ^.*\sVersion\s+:\s+${STACK_VERSION}
+  ^--\s+Module\s\d+ -> MODULE
+  ^--\s+Power\sSupplies ->  Record PSU
+  ^--\s+Fan ->  Record FAN
+  ^Speed\sin\sRPM -> Start
+
+PSU
+  # s3048/s4048
+  ^\s+\d+\s+${PSU_BAY}\s+${PSU_STATUS}\s+${PSU_TYPE}\s+${PSU_FAN_STATUS}\s+${PSU_FAN_SPEED}\s+${PSU_POWER}\s+${PSU_AVG_POWER}\s+${PSU_STARTTIME} -> Record
+  # s55
+  ^\s+\d+\s+${PSU_BAY}\s+${PSU_STATUS}\s+${PSU_TYPE} -> Record
+  ^\s*$$ -> Stack
+
+FAN
+  # s3048/s4048
+  ^\s+${SWITCH}\s+${FAN_BAY}\s+${FAN_TRAY_STATUS}\s+${FAN_FAN1_STATUS}\s+${FAN_FAN1_SPEED}\s+${FAN_FAN2_STATUS}\s+${FAN_FAN2_SPEED} -> Record
+  # s55
+  ^\s+${SWITCH}\s+${FAN_BAY}\s+${FAN_TRAY_STATUS}\s+${FAN_FAN1_STATUS}\s+${FAN_FAN1_SPEED} -> Record
+  ^\s*$$ -> Stack
+
+MODULE
+  ^\s*$$ -> Stack

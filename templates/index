@@ -264,13 +264,14 @@ cisco_nxos_show_vrf.textfsm, .*, cisco_nxos, sh[[ow]] vrf
 
 cisco_s300_show_version.textfsm, .*, cisco_s300, sh[[ow]] ver[[sion]]
 
-<<<<<<< HEAD
 dell_force10_show_vlan_brief.template, .*, dell_force10, sh[[ow]] vl[[an]] br[[ief]]
-dell_force10_show_version.template, .*, dell_force10, sh[[ow]] ver[[sion]]
+dell_force10_show_version.textfsm, .*, dell_force10, sh[[ow]] ver[[sion]]
 dell_force10_show_vlan.template, .*, dell_force10, sh[[ow]] vl[[an]]
 dell_force10_show_arp.template, .*, dell_force10, sh[[ow]] ar[[p]]
 dell_force10_show_int_switchport.template, .*, dell_force10, sh[[ow]] int[[erface]] switch[[port]]
 dell_force10_show_lldp_nei_detail.template, .*, dell_force10, sh[[ow]] ll[[dp]] nei[[ghbors]] de[[tails]]
+dell_force10_show_system.textfsm, .*, dell_force10, sh[[ow]] sys[[tem]]
+dell_force10_show_environment.textfsm, .*, dell_force10, sh[[ow]] env[[ironment]]
 =======
 cisco_wlc_ssh_show_advanced_802.11a_channel.textfsm, .*, cisco_wlc_ssh, sh[[ow]] ad[[vanced]] 802\.11[ab] ch[[annel]]
 cisco_wlc_ssh_show_802.11a_cleanair_config.textfsm, .*, cisco_wlc_ssh, sh[[ow]] 802\.11[ab] cl[[eanair]] c[[onfig]]

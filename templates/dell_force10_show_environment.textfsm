@@ -1,0 +1,55 @@
+Value Key SWITCH (\d+)
+Value STACK_UNIT_STATUS (\S+)
+Value STACK_TEMP (\d+)
+Value STACK_VOLTAGE (\S+)
+Value PSU_UNIT (\d)
+Value PSU_BAY (\d)
+Value PSU_STATUS (\S+)
+Value PSU_TYPE (\S+)
+Value PSU_FAN_STATUS (\S+)
+Value PSU_FAN_SPEED (\d+)
+Value PSU_POWER (\d+)
+Value PSU_AVG_POWER (\d+)
+Value PSU_STARTTIME (\S+)
+Value Key FAN_UNIT (\d+)
+Value FAN_BAY (\d+)
+Value FAN_TRAY_STATUS (\S+)
+Value FAN_FAN1_STATUS (\S+)
+Value FAN_FAN1_SPEED (\d+)
+Value FAN_FAN2_STATUS (\S+)
+Value FAN_FAN2_SPEED (\d+)
+Value SENS0_TEMP (\d+)
+Value SENS1_TEMP (\d+)
+Value SENS2_TEMP (\d+)
+Value SENS3_TEMP (\d+)
+Value SENS4_TEMP (\d+)
+
+
+Start
+  ^--\s+Fan ->  Record FAN
+  ^--\s+Power\sSupplies ->  Record PSU
+  ^--\s+Unit\sEnvironment\sStatus -> Record ENV
+  ^--\s+Thermal -> Record TEMP
+  ^\s*$$ -> Clearall
+
+PSU
+  # s3048/s4048
+  ^\s+${SWITCH}\s+${PSU_BAY}\s+${PSU_STATUS}\s+${PSU_TYPE}\s+${PSU_FAN_STATUS}\s+${PSU_FAN_SPEED}\s+${PSU_POWER}\s+${PSU_AVG_POWER}\s+${PSU_STARTTIME} -> Record
+  # s55
+  ^\s+${SWITCH}\s+${PSU_BAY}\s+${PSU_STATUS}\s+${PSU_TYPE}\s+${PSU_FAN_STATUS} -> Record
+  ^\s*$$ -> Start
+
+FAN
+  # s3048/s4048
+  ^\s+${SWITCH}\s+${FAN_BAY}\s+${FAN_TRAY_STATUS}\s+${FAN_FAN1_STATUS}\s+${FAN_FAN1_SPEED}\s+${FAN_FAN2_STATUS}\s+${FAN_FAN2_SPEED} -> Record
+  # s55
+  ^\s+${SWITCH}\s+${FAN_BAY}\s+${FAN_TRAY_STATUS}\s+${FAN_FAN1_STATUS}\s+${FAN_FAN1_SPEED} -> Record
+  ^\s*$$ -> Start
+
+ENV
+  ^(\*)?\s+${SWITCH}\s+${STACK_UNIT_STATUS}\s+${STACK_TEMP}\s+${STACK_VOLTAGE} -> Record
+  ^\s*$$ -> Start
+
+TEMP
+  ^(\*)?\s+${SWITCH}\s+${SENS0_TEMP}\s+${SENS1_TEMP}\s+${SENS2_TEMP}\s+${SENS3_TEMP}\s+${SENS4_TEMP} -> Record
+  ^\s*$$ -> Start

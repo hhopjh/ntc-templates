@@ -3,6 +3,6 @@ Value UPTIME (.+)
 Value DEVICE_TYPE (\S+)
 
 Start
-  ^Dell Application Software Version:\s+${OS_VERSION}
-  ^Dell Networking OS uptime is\s${UPTIME}
+  ^Dell.*Application\sSoftware\sVersion:\s+${OS_VERSION}
+  ^.*uptime\sis\s+${UPTIME}
   ^System Type:\s${DEVICE_TYPE} -> Record
